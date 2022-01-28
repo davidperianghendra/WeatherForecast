@@ -1,0 +1,91 @@
+<h1 id="tableLabel">Weather Forecast</h1>
+
+<p class="mt-4">This component demonstrates fetching data from the server.</p>
+
+<p *ngIf="loading"><em>Loading...</em></p>
+
+<form [formGroup]="weatherForm" class="mt-4" (ngSubmit)="handleGetWeather()">
+    <div class="row form-group">
+        <div class="col-md-4">Country</div>
+        <div class="col-md-8">
+            <select class="form-control" [(ngModel)]="selectedCountryCode" (change)="handleCountryChange($event)" formControlName="country">
+                <option>Choose Country</option>
+                <option class="option" *ngFor="let country of countries" [value]="country.alpha2Code">{{ country.englishShortName }}</option>
+            </select>
+            <div *ngIf="f.country.touched && f.country.invalid" class="alert alert-danger">
+                <div *ngIf="f.country.errors.required">Country is required.</div>
+            </div>
+        </div>
+    </div>
+    <div class="row form-group" *ngIf="selectedCountry != null">
+        <div class="col-md-4">City</div>
+        <div class="col-md-8">
+            <select class="form-control" [(ngModel)]="selectedCityName" (change)="handleCityChange($event)" formControlName="city" *ngIf="selectedCountry != null">
+                <option>Choose City</option>
+                <option class="option" *ngFor="let city of cities" [value]="city.name">{{ city.name }}</option>
+            </select>
+            <div *ngIf="f.city.touched && f.city.invalid" class="alert alert-danger">
+                <div *ngIf="f.city.errors.required">City is required.</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button type="submit" class="btn btn-primary" [disabled]="!weatherForm.valid">Submit</button>
+            
+            <button class="btn btn-warning ml-3" (click)="handleWeatherReset($event)">Reset</button>
+        </div>
+    </div>
+</form>
+<table class='table table-striped mt-5' aria-labelledby="tableLabel" *ngIf="forecast">
+    <tbody>
+        <tr>
+            <td>Country</td>
+            <td>{{ selectedCountry.englishShortName }}</td>
+        </tr>
+        <tr>
+            <td>City</td>
+            <td>{{ selectedCity.name }}</td>
+        </tr>
+        <tr>
+            <td>Location</td>
+            <td>Latitude {{ forecast.location.latitude }} Longitude {{ forecast.location.longitude }}</td>
+        </tr>
+        <tr>
+            <td>Time</td>
+            <td>{{ forecast.time }}</td>
+        </tr>
+        <tr>
+            <td>Wind</td>
+            <td>Speed {{ forecast.speed }} Deg {{ forecast.deg }}</td>
+        </tr>
+        <tr>
+            <td>Visibility</td>
+            <td>{{ forecast.visibility }}</td>
+        </tr>
+        <tr>
+            <td>Sky Conditions</td>
+            <td>{{ forecast.sky[0].main }} - {{ forecast.sky[0].description }}</td>
+        </tr>
+        <tr>
+            <td>Temperature (C)</td>
+            <td>{{ forecast.temperatureC }}</td>
+        </tr>
+        <tr>
+            <td>Temperature (F)</td>
+            <td>{{ forecast.temperatureF }}</td>
+        </tr>
+        <tr>
+            <td>Dew Point</td>
+            <td>{{ forecast.dewPoint }}</td>
+        </tr>
+        <tr>
+            <td>Relative Humidity</td>
+            <td>{{ forecast.humidity }}</td>
+        </tr>
+        <tr>
+            <td>Pressure</td>
+            <td>{{ forecast.pressure }}</td>
+        </tr>
+    </tbody>
+</table>
