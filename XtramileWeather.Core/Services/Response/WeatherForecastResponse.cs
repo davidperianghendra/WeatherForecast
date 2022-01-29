@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using XtramileWeather.Core.Service.Response;
 
 namespace XtramileWeather.Core.Services.Response
@@ -16,6 +17,7 @@ namespace XtramileWeather.Core.Services.Response
         public WeatherResultWind Wind { get; set; }
         public int Visibility { get; set; }
         public List<WeatherResultWeather> Sky { get; set; }
+        public double Temperature { get; set; }
         public double TemperatureC { get; set; }
         public double TemperatureF { get; set; }
         public string DewPoint { get; set; }

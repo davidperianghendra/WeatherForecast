@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\XtramileWeather.Core\XtramileWeather.Core.csproj" />
+    <ProjectReference Include="..\XtramileWeather\XtramileWeather.App.csproj" />
   </ItemGroup>
 
 </Project>
